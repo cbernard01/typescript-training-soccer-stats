@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/cbernard01/typescript-training-sorter#readme",
   "dependencies": {
+    "@types/node": "^13.7.1",
     "concurrently": "^5.1.0",
     "nodemon": "^2.0.2"
   }
