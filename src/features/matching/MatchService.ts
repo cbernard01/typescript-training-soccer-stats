@@ -1,8 +1,8 @@
 import {DataReader} from "../db/interfaces/DataReaderImp";
 import {dateStringToDate} from "../db/dataParseService";
 import {MatchResult} from "./MatchResult";
-
-type MatchData = [Date, string, string, number, number, MatchResult, string];
+import {MatchData} from "./MatchData";
+import {CSVFileService} from "../db/classes/CSVFileService";
 
 export class MatchService {
   reader: DataReader;
@@ -10,6 +10,12 @@ export class MatchService {
 
   constructor(reader: DataReader) {
     this.reader = reader;
+  }
+
+  static serviceWithCSVFileServiceWithLoading(filename: string): MatchService {
+    const matchService = new MatchService(new CSVFileService(filename));
+    matchService.load();
+    return matchService;
   }
 
   load(): void {

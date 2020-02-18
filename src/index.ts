@@ -1,18 +1,7 @@
-import {MatchResult} from "./features/matching/MatchResult";
 import {MatchService} from "./features/matching/MatchService";
-import {CSVFileService} from "./features/db/classes/CSVFileService";
+import {Builder} from "./features/builders/Builder";
 
-const csvFileService = new CSVFileService("data/data.csv");
-const matchService = new MatchService(csvFileService);
-matchService.load();
-let manUnitedWins: number = 0;
+const matchService = MatchService.serviceWithCSVFileServiceWithLoading("data/data.csv");
+const builder1 = Builder.winsAnalysisWithHTMLReport("Southampton");
 
-for (let match of matchService.matches) {
-  if (match[1] === "Man United" && match[5] === MatchResult.HomeWin) {
-    manUnitedWins++;
-  } else if (match[2] === "Man United" && match[5] === MatchResult.AwayWin) {
-    manUnitedWins++;
-  }
-}
-
-console.log(`Man United won ${manUnitedWins} games.`);
+builder1.buildAndPrintReport(matchService.matches);
